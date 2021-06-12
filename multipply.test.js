@@ -12,7 +12,7 @@ test('object example', () => {
     expect(data).toEqual({ first: 1, second: 2 });
 });
 
-describe('test multiply positive scenarios', () => {
+describe('test multiply positive scenario', () => {
     test('multiply 4*3 should not equal 11', () => {
         expect(multiply(4, 3)).not.toBe(11);
     });
