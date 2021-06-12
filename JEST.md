@@ -1,6 +1,4 @@
-## Jest
-
----
+# Jest
 
 What is Jest?
 
@@ -40,9 +38,20 @@ $ npm install --save-dev jest
 
 3. Jest will test any file with a name.test.js or name.spec.js format.
 
-4. Basic format for a simple function test:
+# Functions
+
+## toBe()
+
+---
 
 ```javascript
+//function
+const multiply = (a, b) => {
+    return a * b;
+};
+
+module.exports = multiply;
+//test
 const multiply = require('./multiply');
 
 describe('test multiply positive scenarios', () => {
@@ -51,3 +60,43 @@ describe('test multiply positive scenarios', () => {
     });
 });
 ```
+
+_toBe() is used when you are expected a value_
+
+## not.toBe()
+
+---
+
+```javascript
+describe('test multiply positive scenarios', () => {
+    test('multiply 4*3 should not equal 11', () => {
+        expect(multiply(4, 3)).not.toBe(11);
+    });
+});
+```
+
+## Common Matchers
+
+---
+
+```javascript
+test('object example', () => {
+    const data = { first: 1 };
+    data['second'] = 2;
+    expect(data).toEqual({ first: 1, second: 2 });
+});
+```
+
+_toEqual is used for value checking_
+
+## toMatch
+
+---
+
+```javascript
+test('there is pool in liverpool', () => {
+    expect('Liverpool').toMatch(/pool/);
+});
+```
+
+_checks if a value includes the match argument_
