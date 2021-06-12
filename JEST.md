@@ -4,6 +4,17 @@ What is Jest?
 
 A facebook all inclusive framework for client and server side test automation. Open-sourced javascript library.
 
+Used for:
+
+-   React
+-   Babel
+-   Javascript
+-   Node
+-   Angular
+-   Vue
+-   NestJS
+-   GraphQL
+
 Why use Jest?
 
 -   Ease of setup
@@ -78,6 +89,54 @@ _runs only the test specified_
 ```
 
 _watches all files and gives more options on rerun_
+
+# Debugging
+
+In vscode click the debugger icon then the gear/settings button at the top, set up the file like this.
+
+```javascript
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest All",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["--runInBand"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["${relativeFile}"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Selected Test Name",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["${relativeFile}", "-t=${selectedText}$", "--watch"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    }
+  ]
+}
+```
 
 # Functions
 
