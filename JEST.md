@@ -54,6 +54,31 @@ $ npm install @types/jest
 
 5. Jest will test any file with a name.test.js or name.spec.js format.
 
+```
+$ npm run test multiply.test.js
+```
+
+_runs just that test file_
+
+```javascript
+// javascript
+test.only...
+
+// terminal
+$ npm run test multiply.test.js
+```
+
+_runs only the test specified_
+
+```json
+// packacge.json
+"scripts": {
+    "test:watch": "jest --watchAll"
+}
+```
+
+_watches all files and gives more options on rerun_
+
 # Functions
 
 ## toBe()
@@ -196,3 +221,77 @@ describe('new account creation checks', () => {
     });
 });
 ```
+
+## Asynchronous testing
+
+---
+
+-   Callbacks
+-   Promises
+-   async/await
+
+```javascript
+// javascript file
+const fetchDataOverApi = async () => {
+    return 'John';
+};
+
+module.exports = fetchDataOverApi;
+
+// test file
+const fetchDataOverApi = require('./fetchData');
+
+// bad
+// test('the user data for user 1', () => {
+//     const data = fetchDataOverApi();
+//     expect(data).toBe('John');
+// });
+
+test('the user data for user 1', async () => {
+    const data = await fetchDataOverApi();
+    expect(data).toBe('John');
+});
+```
+
+## Snapshot testing
+
+---
+
+-   made for testing UI
+-   fails if snapshot doesn't match current data
+
+```javascript
+// before snapshots were used you had to update assertion values to match current data
+var itemStock = [
+    { Id: '1', ItemName: 'Razors', Stock: '10' },
+    { Id: '2', ItemName: 'Socks', Stock: '1' },
+    { Id: '3', ItemName: 'Towels', Stock: '100' },
+    { Id: '4', ItemName: 'Socks', Stock: '100' },
+];
+function filterItemStock(arr, key, term) {
+    return arr.filter(function (obj) {
+        return obj[key] === term;
+    });
+}
+test('it returns all items with matching Id', () => {
+    expect(filterItemStock(itemStock, 'Id', '1')).toEqual([
+        { Id: '1', ItemName: 'Razors', Stock: '10' },
+    ]);
+});
+test('it returns all items with matching ItemName', () => {
+    expect(filterItemStock(itemStock, 'ItemName', 'Socks')).toEqual([
+        { Id: '2', ItemName: 'Socks', Stock: '1' },
+        { Id: '4', ItemName: 'Socks', Stock: '100' },
+    ]);
+});
+
+// using snapshots
+test('it returns all items with matching Id', () => {
+    expect(filterItemStock(itemStock, 'Id', '1')).toMatchSnapshot();
+});
+test('it returns all items with matching ItemName', () => {
+    expect(filterItemStock(itemStock, 'ItemName', 'Socks')).toMatchSnapshot();
+});
+```
+
+_The primary purpose of snapshots is to avoid manually inputting data for tests_
